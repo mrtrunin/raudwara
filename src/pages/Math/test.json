@@ -11,7 +11,7 @@
     },
     {
       "type": "text",
-      "content": "Kui $a = 13$ ja $b = 14$, siis \\(a^2 - 2ab + b^2 = (a - b)^2\\) tuleb midagi sellist."
+      "content": "Kuigi $a = 13$ ja $b = 14$, siis \\(a^2 - 2ab + b^2 = (a - b)^2\\) tuleb midagi sellist."
     }
   ]
 }
