@@ -25,7 +25,7 @@ const App: FC = () => {
           }}
         >
           <Switch>
-            <Route path="/matemaatika" component={Math} />
+            <Route path="/" component={Math} />
             {/* <Route path={} component={} /> */}
           </Switch>
           {/* Some main page */}
