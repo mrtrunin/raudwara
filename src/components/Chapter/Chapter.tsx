@@ -32,7 +32,7 @@ const Chapter: FC<Chapter> = ({ contentResponse }) => {
       </Col>
 
       <Col xs={24} sm={0} md={0} lg={0} xl={0} xxl={0} className="small">
-        <ChapterContent titleSize={4} contentResponse={contentResponse} />
+        <ChapterContent titleSize={3} contentResponse={contentResponse} />
       </Col>
     </Row>
   );

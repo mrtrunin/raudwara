@@ -1,3 +1,33 @@
 .text {
   font-family: Caslon;
 }
+
+.bold {
+  font-family: CaslonBold;
+}
+
+.title {
+  padding-top: 20px;
+  padding-bottom: 12px;
+  margin: 1.2em 0;
+  border-style: solid hidden solid hidden;
+}
+
+.allcaps {
+  text-transform: uppercase;
+}
+
+.center {
+  text-align: center;
+}
+
+.wide {
+  min-width: 60%;
+}
+
+.rule {
+  padding-top: 20px;
+  padding-bottom: 18px;
+  min-height: 3em;
+  background-color: #dddddd;
+}

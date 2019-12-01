@@ -6,7 +6,7 @@ import { Math } from "../../pages/Math/Math";
 import { Navigation } from "../Navigation/Navigation";
 import { Layout } from "antd";
 
-const { Header, Content } = Layout;
+const { Header, Content, Footer } = Layout;
 
 const App: FC = () => {
   return (
@@ -25,11 +25,12 @@ const App: FC = () => {
           }}
         >
           <Switch>
-            <Route path="/math" component={Math} />
+            <Route path="/matemaatika" component={Math} />
             {/* <Route path={} component={} /> */}
           </Switch>
           {/* Some main page */}
         </Content>
+        <Footer className="center">Raudwara 2019</Footer>
       </Layout>
     </Router>
   );

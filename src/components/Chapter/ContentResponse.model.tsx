@@ -1,6 +1,9 @@
 export interface Paragraph {
   type: string;
-  content: string;
+  title?: string;
+  content?: string;
+  filename?: string;
+  alt?: string;
 }
 
 export interface ContentResponse {

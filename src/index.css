@@ -17,3 +17,9 @@ code {
   src: local("Caslon"),
     url(./fonts/AdobeCaslonProRegular.ttf) format("truetype");
 }
+
+@font-face {
+  font-family: "CaslonBold";
+  src: local("CaslonBold"),
+    url(./fonts/AdobeCaslonProBold.ttf) format("truetype");
+}
