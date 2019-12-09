@@ -1,17 +1,46 @@
-import React from "react";
-import { Menu } from "antd";
+import React, { useState, useEffect } from "react";
+import { Menu, Icon } from "antd";
+import SubMenu from "antd/lib/menu/SubMenu";
+import { Book } from "../Book/Book.model";
+import { getBooks } from "../../api/api";
 
 export const Navigation = () => {
+  const [books, setBooks] = useState<Book[]>([]);
+
+  useEffect(() => {
+    getBooks().then(res => setBooks(res));
+  }, []);
+
   return (
     <Menu
       theme="light"
       mode="horizontal"
-      defaultSelectedKeys={["2"]}
+      defaultSelectedKeys={["matemaatika"]}
       style={{ lineHeight: "64px" }}
     >
-      <Menu.Item key="1">nav 1</Menu.Item>
-      <Menu.Item key="2">nav 2</Menu.Item>
-      <Menu.Item key="3">nav 3</Menu.Item>
+      {books.map((book, i) => {
+        return (
+          <SubMenu
+            key={i}
+            title={
+              <span className="submenu-title-wrapper">
+                <a href="/books">
+                  {book.icon && <Icon type={book.icon} />}
+                  {book.title}
+                </a>
+              </span>
+            }
+          >
+            {book.chapters.map((chapter, j) => {
+              return (
+                <Menu.Item key={`${chapter.title}:${j}`}>
+                  <a href={`/chapter/${chapter._id}`}>{chapter.title}</a>
+                </Menu.Item>
+              );
+            })}
+          </SubMenu>
+        );
+      })}
     </Menu>
   );
 };

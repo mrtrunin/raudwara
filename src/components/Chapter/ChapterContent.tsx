@@ -1,77 +1,53 @@
-import React, { FC } from "react";
+import React from "react";
 import { Typography } from "antd";
-import "./ChapterContent.css";
-import { ContentResponse, Paragraph } from "./ContentResponse.model";
+import "./Chapter.css";
+import { Section } from "../Section/Section.model";
+import { ChapterContentProps } from "./Chapter.model";
+import Image from "../Section/Image";
+import SectionTitle from "../Section/Title";
+import Definition from "../Section/Definition";
+import Formula from "../Section/Formula";
+import Rule from "../Section/Rule";
+import Text from "../Section/Text";
+import ChapterPreviousNextButtons from "./ChapterPreviousNextButtons";
 
 const { Title } = Typography;
 
-interface ChapterContent {
-  titleSize?: 1 | 2 | 3 | 4 | undefined;
-  contentResponse: ContentResponse;
-}
-
-const ChapterContent: FC<ChapterContent> = ({ titleSize, contentResponse }) => {
+const ChapterContent = ({
+  titleSize,
+  chapter,
+  previousChapter,
+  nextChapter
+}: ChapterContentProps) => {
   return (
     <>
       <Title level={titleSize} className="allcaps center">
-        {contentResponse.title}
+        {chapter.title}
       </Title>
-      {contentResponse.content.map((item: Paragraph, i: number) => {
-        if (item.type === "image") {
-          return (
-            <p className="center wide" key={i}>
-              <img
-                src={"images/" + item.filename}
-                alt={item.alt}
-                className="wide"
-              />
-            </p>
-          );
-        }
-        if (item.type === "title") {
-          return (
-            <p className="text title allcaps center" key={i}>
-              {item.content}
-            </p>
-          );
-        }
 
-        if (item.type === "definition") {
-          return (
-            <p className="text" key={i}>
-              <span className="bold">{item.title}</span>
-              {" - "}
-              <span>{item.content}</span>
-            </p>
-          );
-        }
-
-        if (item.type === "formula") {
-          return (
-            <p key={i} className="text center">
-              {item.content}
-            </p>
-          );
-        }
-
-        if (item.type === "rule") {
-          return (
-            <p key={i} className="text center bold rule">
-              {item.content}
-            </p>
-          );
-        }
-
-        if (item.type === "text") {
-          return (
-            <p key={i} className="text">
-              {item.content}
-            </p>
-          );
-        } else {
-          return null;
+      {chapter.sections.map((section: Section, i: number) => {
+        switch (section.type) {
+          case "image":
+            return <Image section={section} key={i} />;
+          case "title":
+            return <SectionTitle section={section} key={i} />;
+          case "definition":
+            return <Definition section={section} key={i} />;
+          case "formula":
+            return <Formula section={section} key={i} />;
+          case "rule":
+            return <Rule section={section} key={i} />;
+          case "text":
+            return <Text section={section} key={i} />;
+          default:
+            return null;
         }
       })}
+
+      <ChapterPreviousNextButtons
+        previousChapter={previousChapter}
+        nextChapter={nextChapter}
+      />
     </>
   );
 };

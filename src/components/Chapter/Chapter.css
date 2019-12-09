@@ -9,3 +9,19 @@
 .large {
   font-size: 24px;
 }
+
+.allcaps {
+  text-transform: uppercase;
+}
+
+.center {
+  text-align: center;
+}
+
+.left {
+  text-align: left;
+}
+
+.right {
+  text-align: right;
+}

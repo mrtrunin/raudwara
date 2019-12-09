@@ -1,41 +1,76 @@
-import React, { FC } from "react";
-import ChapterContent from "./ChapterContent";
-import { ContentResponse } from "./ContentResponse.model";
-import { Row, Col } from "antd";
-import "./Chapter.css";
+import React, { useState, useEffect } from "react";
+import { Book } from "../../components/Book/Book.model";
+import { getChapter, getBookByChapterId } from "../../api/api";
+import { RouteComponentProps } from "react-router";
+import { Chapter as ChapterModel } from "../../components/Chapter/Chapter.model";
+import ChapterStructure from "../../components/Chapter/ChapterStructure";
 
-interface Chapter {
-  contentResponse: ContentResponse;
-}
-
-const Chapter: FC<Chapter> = ({ contentResponse }) => {
-  return (
-    <Row>
-      <Col xs={0} sm={0} md={0} lg={16} offset={4} className="large">
-        <ChapterContent titleSize={1} contentResponse={contentResponse} />
-      </Col>
-      <Col
-        xs={0}
-        sm={0}
-        md={20}
-        lg={0}
-        xl={0}
-        xxl={0}
-        offset={2}
-        className="large"
-      >
-        <ChapterContent titleSize={2} contentResponse={contentResponse} />
-      </Col>
-
-      <Col xs={0} sm={24} md={0} lg={0} xl={0} xxl={0} className="medium">
-        <ChapterContent titleSize={3} contentResponse={contentResponse} />
-      </Col>
-
-      <Col xs={24} sm={0} md={0} lg={0} xl={0} xxl={0} className="small">
-        <ChapterContent titleSize={3} contentResponse={contentResponse} />
-      </Col>
-    </Row>
+const Chapter = ({ match }: RouteComponentProps<{ id: string }>) => {
+  const [chapter, setChapter] = useState<ChapterModel | undefined>(undefined);
+  const [previousChapter, setPreviousChapter] = useState<
+    ChapterModel | undefined
+  >(undefined);
+  const [nextChapter, setNextChapter] = useState<ChapterModel | undefined>(
+    undefined
   );
+
+  useEffect(() => {
+    const currentChapterId = match.params.id;
+    getChapter(currentChapterId).then(chapter => setChapter(chapter));
+    getBookByChapterId(currentChapterId).then(book =>
+      getPreviousAndNextChaptersFromBook(book, currentChapterId)
+    );
+  }, [match.params.id]);
+
+  const getPreviousAndNextChaptersFromBook = (
+    book: Book,
+    currentChapterId: string
+  ): void => {
+    const bookLength = book.chapters.length;
+
+    let previousChapter = undefined;
+    let nextChapter = undefined;
+
+    if (bookLength <= 1) {
+      return;
+    }
+
+    const currentChapterIndex = book.chapters.findIndex(
+      chapter => chapter._id === currentChapterId
+    );
+
+    const currentChapterIndexIsFirst = currentChapterIndex === 0;
+    const currentChapterIndexIsLast = currentChapterIndex === bookLength - 1;
+    const currentChapterIndexisNth =
+      currentChapterIndex > 0 && !currentChapterIndexIsLast;
+
+    if (currentChapterIndexIsFirst) {
+      nextChapter = book.chapters[1];
+    }
+
+    if (currentChapterIndexIsLast) {
+      previousChapter = book.chapters[bookLength - 2];
+    }
+
+    if (currentChapterIndexisNth) {
+      nextChapter = book.chapters[currentChapterIndex + 1];
+      previousChapter = book.chapters[currentChapterIndex + 1];
+    }
+
+    setPreviousChapter(previousChapter);
+    setNextChapter(nextChapter);
+  };
+
+  if (!chapter) {
+    return <div>No chapter</div>;
+  } else
+    return (
+      <ChapterStructure
+        chapter={chapter}
+        previousChapter={previousChapter}
+        nextChapter={nextChapter}
+      />
+    );
 };
 
 export default Chapter;

@@ -1,14 +1,15 @@
-import React, { FC } from "react";
+import React from "react";
 import { Switch } from "react-router-dom";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import "./App.css";
-import { Math } from "../../pages/Math/Math";
 import { Navigation } from "../Navigation/Navigation";
 import { Layout } from "antd";
+import Books from "../Book/Books";
+import Chapter from "../Chapter/Chapter";
 
 const { Header, Content, Footer } = Layout;
 
-const App: FC = () => {
+const App = () => {
   return (
     <Router>
       <Layout>
@@ -25,8 +26,8 @@ const App: FC = () => {
           }}
         >
           <Switch>
-            <Route path="/" component={Math} />
-            {/* <Route path={} component={} /> */}
+            <Route path="/books" component={Books} />
+            <Route path="/chapter/:id" component={Chapter} />
           </Switch>
           {/* Some main page */}
         </Content>
