@@ -1,5 +1,5 @@
 import React from "react";
-import { BookList } from "../../components/Book/Book.model";
+import { BookList } from "./Book.model";
 
 const BooksList = ({ books }: BookList) => {
   if (!books) {

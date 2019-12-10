@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { Book } from "../../components/Book/Book.model";
+import { Book } from "../Book/Book.model";
 import { getChapter, getBookByChapterId } from "../../api/api";
 import { RouteComponentProps } from "react-router";
-import { Chapter as ChapterModel } from "../../components/Chapter/Chapter.model";
-import ChapterStructure from "../../components/Chapter/ChapterStructure";
+import { Chapter as ChapterModel } from "./Chapter.model";
+import ChapterStructure from "./ChapterStructure";
 
 const Chapter = ({ match }: RouteComponentProps<{ id: string }>) => {
   const [chapter, setChapter] = useState<ChapterModel | undefined>(undefined);

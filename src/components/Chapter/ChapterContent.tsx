@@ -14,14 +14,14 @@ import ChapterPreviousNextButtons from "./ChapterPreviousNextButtons";
 const { Title } = Typography;
 
 const ChapterContent = ({
-  titleSize,
+  titlesize,
   chapter,
   previousChapter,
   nextChapter
 }: ChapterContentProps) => {
   return (
     <>
-      <Title level={titleSize} className="allcaps center">
+      <Title level={titlesize} className="allcaps center">
         {chapter.title}
       </Title>
 

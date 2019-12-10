@@ -13,7 +13,7 @@ export interface Chapter {
 }
 
 export interface ChapterContentProps {
-  titleSize?: 1 | 2 | 3 | 4 | undefined;
+  titlesize?: 1 | 2 | 3 | 4 | undefined;
   chapter: Chapter;
   previousChapter?: Chapter;
   nextChapter?: Chapter;

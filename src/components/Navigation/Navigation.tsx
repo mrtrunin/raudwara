@@ -41,6 +41,17 @@ export const Navigation = () => {
           </SubMenu>
         );
       })}
+      <SubMenu
+        key="login"
+        title={
+          <span className="submenu-title-wrapper">
+            <a href="/login">
+              <Icon type="login" />
+              Login
+            </a>
+          </span>
+        }
+      />
     </Menu>
   );
 };

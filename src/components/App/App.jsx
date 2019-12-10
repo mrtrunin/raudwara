@@ -6,10 +6,34 @@ import { Navigation } from "../Navigation/Navigation";
 import { Layout } from "antd";
 import Books from "../Book/Books";
 import Chapter from "../Chapter/Chapter";
+import Login from "../Login/Login";
+import axios from "axios";
 
 const { Header, Content, Footer } = Layout;
 
 const App = () => {
+  axios.interceptors.request.use(
+    config => {
+      const token = localStorage.getItem("jwt");
+      if (token) {
+        config.headers["Authorization"] = "Bearer " + token;
+      }
+      return config;
+    },
+    error => {
+      return Promise.reject(error);
+    }
+  );
+
+  axios.interceptors.response.use(
+    response => {
+      return response;
+    },
+    error => {
+      return Promise.reject(error);
+    }
+  );
+
   return (
     <Router>
       <Layout>
@@ -28,6 +52,7 @@ const App = () => {
           <Switch>
             <Route path="/books" component={Books} />
             <Route path="/chapter/:id" component={Chapter} />
+            <Route path="/login" component={Login} />
           </Switch>
           {/* Some main page */}
         </Content>
