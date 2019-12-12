@@ -3,23 +3,30 @@ import { Form, Input, Icon, Button } from "antd";
 import "./Login.css";
 import { FormComponentProps } from "antd/lib/form";
 import CenterStructure from "../common/PageStructure/CenterStructure";
-import { login } from "../../api/api";
+import { useHistory } from "react-router";
+import { useDispatch } from "react-redux";
+import { login } from "../User/UserActions";
 
 interface UserFormProps extends FormComponentProps {
-  age: number;
-  name: string;
+  username: string;
+  password: string;
+  history: any;
 }
 
 const Login = ({ form }: UserFormProps) => {
+  const dispatch = useDispatch();
+  const history = useHistory();
+
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
-    form.validateFields((err, values) => {
+    form.validateFields(async (err, values) => {
       if (!err) {
-        login(values.username, values.password).then(res => {
-          localStorage.setItem("jwt", res.access_token);
-          console.log("Login successful");
-          // TODO: redirect
-        });
+        try {
+          dispatch(login(values.username, values.password));
+          history.push("/books");
+        } catch (error) {
+          alert(error);
+        }
       }
     });
   };

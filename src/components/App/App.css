@@ -5,3 +5,9 @@
 .center {
   text-align: center;
 }
+
+.logo {
+  width: 120px;
+  background: rgba(255, 255, 255, 0.2);
+  float: right;
+}

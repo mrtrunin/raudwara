@@ -8,13 +8,20 @@ import Books from "../Book/Books";
 import Chapter from "../Chapter/Chapter";
 import Login from "../Login/Login";
 import axios from "axios";
+import { useSelector } from "react-redux";
+import { RootState } from "../../rootReducer";
+import { User } from "../User/User.model";
+import Logout from "../Logout/Logout";
 
 const { Header, Content, Footer } = Layout;
 
 const App = () => {
+  const user: User = useSelector((state: RootState) => state.user.user);
+
   axios.interceptors.request.use(
     config => {
       const token = localStorage.getItem("jwt");
+
       if (token) {
         config.headers["Authorization"] = "Bearer " + token;
       }
@@ -37,8 +44,10 @@ const App = () => {
   return (
     <Router>
       <Layout>
-        <div className="logo" />
         <Header className="header">
+          <div className="logo">
+            {user.firstName ? `Welcome ${user.firstName}!` : ""}
+          </div>
           <Navigation />
         </Header>
         <Content
@@ -53,6 +62,7 @@ const App = () => {
             <Route path="/books" component={Books} />
             <Route path="/chapter/:id" component={Chapter} />
             <Route path="/login" component={Login} />
+            <Route path="/logout" component={Logout} />
           </Switch>
           {/* Some main page */}
         </Content>
