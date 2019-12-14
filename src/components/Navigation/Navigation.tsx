@@ -44,6 +44,17 @@ export const Navigation = () => {
           </SubMenu>
         );
       })}
+      <SubMenu
+        key="write"
+        title={
+          <span className="submenu-title-wrapper">
+            <a href="/write">
+              <Icon type="book" />
+              Write
+            </a>
+          </span>
+        }
+      />
       {Object.keys(user).length === 0 ? (
         <SubMenu
           key="login"

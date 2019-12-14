@@ -12,6 +12,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "../../rootReducer";
 import { User } from "../User/User.model";
 import Logout from "../Logout/Logout";
+import Write from "../Write/Write";
 
 const { Header, Content, Footer } = Layout;
 
@@ -63,6 +64,7 @@ const App = () => {
             <Route path="/chapter/:id" component={Chapter} />
             <Route path="/login" component={Login} />
             <Route path="/logout" component={Logout} />
+            <Route path="/write" component={Write} />
           </Switch>
           {/* Some main page */}
         </Content>
