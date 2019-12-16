@@ -65,11 +65,13 @@ const Chapter = ({ match }: RouteComponentProps<{ id: string }>) => {
     return <div>No chapter</div>;
   } else
     return (
-      <ChapterStructure
-        chapter={chapter}
-        previousChapter={previousChapter}
-        nextChapter={nextChapter}
-      />
+      <div id="MathJaxContainer">
+        <ChapterStructure
+          chapter={chapter}
+          previousChapter={previousChapter}
+          nextChapter={nextChapter}
+        />
+      </div>
     );
 };
 

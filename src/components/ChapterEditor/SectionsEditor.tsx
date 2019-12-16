@@ -1,0 +1,95 @@
+import React from "react";
+import { Section } from "../Section/Section.model";
+import { List, Button } from "antd";
+import SectionEditor from "./SectionEditor";
+import arrayMove from "array-move";
+import "./SectionsEditor.css";
+
+interface SectionsEditorProps {
+  sections: Section[];
+  onSectionsChange: (e: any) => void;
+  createNewSection: (section: Section) => void;
+}
+
+const SectionsEditor = ({
+  sections,
+  onSectionsChange,
+  createNewSection
+}: SectionsEditorProps) => {
+  const onSortSections = (oldIndex: number, newIndex: number) => {
+    onSectionsChange(arrayMove(sections, oldIndex, newIndex));
+  };
+
+  const onSectionChange = (updatedSection: Section) => {
+    const sectionIndex = sections.findIndex(section => {
+      return updatedSection._id === section._id;
+    });
+
+    onSectionsChange([
+      ...sections.slice(0, sectionIndex),
+      updatedSection,
+      ...sections.slice(sectionIndex + 1)
+    ]);
+  };
+
+  const triggerNewSection = () => {
+    const defaultNewSection: Section = {
+      _id: "",
+      type: "definition",
+      title: ""
+    };
+    createNewSection(defaultNewSection);
+  };
+
+  if (sections.length > 0) {
+    return (
+      <>
+        {sections.map((section, i) => {
+          return (
+            <List.Item key={i}>
+              <SectionEditor
+                section={section}
+                onSectionChange={onSectionChange}
+              />
+              <div className="right">
+                {i !== 0 && (
+                  <Button
+                    type="dashed"
+                    shape="circle"
+                    icon="up"
+                    onClick={() => {
+                      onSortSections(i, i - 1);
+                    }}
+                  />
+                )}
+                {i !== sections.length - 1 && (
+                  <Button
+                    type="dashed"
+                    shape="circle"
+                    icon="down"
+                    onClick={() => {
+                      onSortSections(i, i + 1);
+                    }}
+                  />
+                )}
+              </div>
+            </List.Item>
+          );
+        })}
+
+        <List.Item>
+          <Button onClick={triggerNewSection}>Add New Section</Button>
+        </List.Item>
+      </>
+    );
+  }
+  return (
+    <>
+      <List.Item>
+        <Button onClick={triggerNewSection}>Add New Section</Button>
+      </List.Item>
+    </>
+  );
+};
+
+export default SectionsEditor;

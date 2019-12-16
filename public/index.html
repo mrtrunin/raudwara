@@ -34,23 +34,41 @@
         margin: 0;
       }
       .MathJax {
-        font-size: 2em;
+        font-size: 1.2em;
       }
     </style>
     <script>
-      MathJax = {
+      window.MathJax = {
         tex: {
           inlineMath: [
             ["$", "$"],
             ["\\(", "\\)"]
           ]
+        },
+        svg: {
+          fontCache: "global"
         }
       };
+
+      let promise = Promise.resolve(); // Used to hold chain of typesetting calls
+
+      function typeset(code) {
+        promise = promise
+          .then(() => {
+            // console.log(MathJax.typesetPromise());
+            code();
+            return MathJax.typesetPromise();
+          })
+          .catch(err => console.log("Typeset failed: " + err.message));
+        console.log(promise);
+        return promise;
+      }
     </script>
     <script
+      type="text/javascript"
       id="MathJax-script"
       async
-      src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"
+      src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"
     ></script>
   </head>
   <body>

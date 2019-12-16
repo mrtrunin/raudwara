@@ -1,70 +1,46 @@
-import React, { useState } from "react";
-import { Menu, Icon, Button } from "antd";
-import arrayMove from "array-move";
+import React, { useState, useEffect } from "react";
+import { getBooks } from "../../api/api";
+import { Book } from "../Book/Book.model";
 
 const Write = () => {
-  const [items, setItems] = useState([
-    "Item 1",
-    "Item 2",
-    "Item 3",
-    "Item 4",
-    "Item 5",
-    "Item 6"
-  ]);
+  const [books, setBooks] = useState<Book[] | null>(null);
 
-  const onSortEnd = (oldIndex: number, newIndex: number) => {
-    console.log("CLICK");
-    console.log(oldIndex);
-    console.log(newIndex);
-    setItems(() => arrayMove(items, oldIndex, newIndex));
+  useEffect(() => {
+    loadBooks();
+  }, []);
+
+  const loadBooks = () => {
+    getBooks().then(books => {
+      setBooks(books);
+    });
   };
 
-  const handleClick = () => {
-    console.log("HELLO");
-  };
+  if (!books) {
+    return <div>No books</div>;
+  }
+
   return (
-    <>
-      {items.map((item, i) => {
+    <div>
+      {books.map((book, i) => {
         return (
-          <div key={i}>
-            {item}{" "}
-            <Icon
-              type="user"
-              onClick={() => {
-                onSortEnd(i, i - 1);
-              }}
-            >
-              Up
-            </Icon>
-            <Button
-              onClick={() => {
-                onSortEnd(i, i + 1);
-              }}
-            >
-              Down
-            </Button>
+          <div key={`book:${i}`}>
+            <h2>{book.title}</h2>
+            <ul>
+              {book.chapters.map((chapter, j) => {
+                return (
+                  <li key={`chapter:${j}`}>
+                    <a href={`/write/chapter/${chapter._id}`}>
+                      {chapter.title}
+                    </a>
+                  </li>
+                );
+              })}
+            </ul>
           </div>
         );
       })}
-    </>
+    </div>
   );
-  // <Menu
-  //   onClick={handleClick}
-  //   style={{ width: 256 }}
-  //   defaultSelectedKeys={["1"]}
-  //   defaultOpenKeys={["sub1"]}
-  //   mode="inline"
-  // >
-  //   <Menu.SubMenu
-  //     key="sub1"
-  //     title={
-  //       <span>
-  //         <Icon type="mail" />
-  //         <span>Navigation One</span>
-  //       </span>
-  //     }
-  //   ></Menu.SubMenu>
-  // </Menu>
 };
 
 export default Write;

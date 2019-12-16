@@ -13,6 +13,7 @@ import { RootState } from "../../rootReducer";
 import { User } from "../User/User.model";
 import Logout from "../Logout/Logout";
 import Write from "../Write/Write";
+import WriteChapter from "../Write/WriteChapter";
 
 const { Header, Content, Footer } = Layout;
 
@@ -44,6 +45,11 @@ const App = () => {
 
   return (
     <Router>
+      <p>
+        {
+          "$\\mathbb{N}  = {1, 2, 3, ...} $ või $\\mathbb{N}  = \\{0, 1, 2, 3, ...\\} $"
+        }
+      </p>
       <Layout>
         <Header className="header">
           <div className="logo">
@@ -56,7 +62,7 @@ const App = () => {
             background: "#fff",
             padding: 24,
             margin: 0,
-            minHeight: 280
+            minHeight: "85vh"
           }}
         >
           <Switch>
@@ -64,7 +70,8 @@ const App = () => {
             <Route path="/chapter/:id" component={Chapter} />
             <Route path="/login" component={Login} />
             <Route path="/logout" component={Logout} />
-            <Route path="/write" component={Write} />
+            <Route path="/write" exact component={Write} />
+            <Route path="/write/chapter/:id" component={WriteChapter} />
           </Switch>
           {/* Some main page */}
         </Content>
