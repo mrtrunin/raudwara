@@ -45,11 +45,6 @@ const App = () => {
 
   return (
     <Router>
-      <p>
-        {
-          "$\\mathbb{N}  = {1, 2, 3, ...} $ või $\\mathbb{N}  = \\{0, 1, 2, 3, ...\\} $"
-        }
-      </p>
       <Layout>
         <Header className="header">
           <div className="logo">
@@ -62,7 +57,7 @@ const App = () => {
             background: "#fff",
             padding: 24,
             margin: 0,
-            minHeight: "85vh"
+            minHeight: "84vh"
           }}
         >
           <Switch>

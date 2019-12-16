@@ -1,24 +1,16 @@
 import React, { useRef, useCallback, useEffect } from "react";
-import useMathJax from "../Hooks/useMathJax";
+
+declare global {
+  interface Window {
+    MathJax: any;
+  }
+}
 
 const MathJax = ({ children }: any) => {
-  useMathJax();
   const node = useRef() as React.MutableRefObject<HTMLDivElement>;
 
-  //   const mathJaxTypeset = useCallback(async (code: any) => {
-  //     try {
-  //       await code();
-  //       return await window.MathJax.typesetPromise();
-  //     } catch (error) {
-  //       console.log("Typeset failed: " + error.message);
-  //     }
-  //   }, []);
-
   const renderMath = useCallback(() => {
-    window.typeset(() => {
-      //   console.log(node.current);
-      return node.current.innerText;
-    });
+    window.MathJax.Hub.Queue(["Typeset", window.MathJax.Hub, node.current]);
   }, [node]);
 
   useEffect(() => {
