@@ -10,8 +10,8 @@ const MathJax = ({ children }: any) => {
   const node = useRef() as React.MutableRefObject<HTMLDivElement>;
 
   const renderMath = useCallback(() => {
-    window.MathJax.Hub.Queue(["Typeset", window.MathJax.Hub, node.current]);
-  }, [node]);
+    window.MathJax.Hub.Queue(["Typeset", window.MathJax.Hub]);
+  }, []);
 
   useEffect(() => {
     return renderMath();

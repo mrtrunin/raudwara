@@ -4,11 +4,11 @@ import { Row, Col } from "antd";
 import PageStructure from "../common/PageStructure/PageStructure";
 import ChapterEditor from "../ChapterEditor/ChapterEditor";
 import { getChapter } from "../../api/api";
-import ChapterStructure from "../Chapter/ChapterStructure";
-import { Chapter } from "../Chapter/Chapter.model";
+import { Chapter as ChapterModel } from "../Chapter/Chapter.model";
+// import Chapter from "../Chapter/Chapter";
 
 const WriteChapter = ({ match }: RouteComponentProps<{ id: string }>) => {
-  const [chapter, setChapter] = useState<Chapter | undefined>(undefined);
+  const [chapter, setChapter] = useState<ChapterModel | undefined>(undefined);
 
   const loadChapter = useCallback(() => {
     const currentChapterId = match.params.id;
@@ -30,9 +30,7 @@ const WriteChapter = ({ match }: RouteComponentProps<{ id: string }>) => {
           <ChapterEditor chapterId={chapter._id} onChapterSave={loadChapter} />
         </PageStructure>
       </Col>
-      <Col span={12}>
-        <ChapterStructure chapter={chapter} />
-      </Col>
+      <Col span={12}>{/* <Chapter chapter={chapter} /> */}</Col>
     </Row>
   );
 };

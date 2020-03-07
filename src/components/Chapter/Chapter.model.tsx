@@ -1,4 +1,4 @@
-import { Section } from "../Section/Section.model";
+import { Section } from "../Sections/Section.model";
 
 export interface ChapterProps {
   chapter: Chapter;
@@ -17,4 +17,7 @@ export interface ChapterContentProps {
   chapter: Chapter;
   previousChapter?: Chapter;
   nextChapter?: Chapter;
+  onSectionsChange: (sections: Section[]) => void;
+  saveChapter: () => void;
+  createNewSection: (section: Section) => void;
 }

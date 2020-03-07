@@ -1,12 +1,13 @@
 import { Chapter } from "../components/Chapter/Chapter.model";
 import axios from "axios";
 import { Book } from "../components/Book/Book.model";
-import { Section } from "../components/Section/Section.model";
+import { Section } from "../components/Sections/Section.model";
 
 const BASE_URL = process.env.REACT_APP_BASE_URL;
 const CHAPTERS_URL = `${BASE_URL}/chapters`;
 const BOOKS_URL = `${BASE_URL}/books`;
 const SECTIONS_URL = `${BASE_URL}/sections`;
+const IMAGE_UPLOAD_URL = `${BASE_URL}/sections/upload`;
 const BOOK_BY_CHAPTER_ID_URL = `${BASE_URL}/books/getBookByChapterId`;
 const LOGIN_URL = `${BASE_URL}/auth/login`;
 
@@ -54,4 +55,17 @@ export async function login(
       password
     })
     .then(res => res.data);
+}
+
+export async function uploadImage(formData: FormData): Promise<Section> {
+  return await axios
+    .post(`${IMAGE_UPLOAD_URL}`, formData, {
+      headers: {
+        "Content-Type": "multipart/form-data"
+      }
+    })
+    .then(res => {
+      console.log(res);
+      return res.data;
+    });
 }

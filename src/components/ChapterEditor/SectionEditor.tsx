@@ -1,10 +1,10 @@
 import React from "react";
 import { Input, Select } from "antd";
-import { Section } from "../Section/Section.model";
+import { Section } from "../Sections/Section.model";
 
 interface SectionEditorProps {
   section: Section;
-  onSectionChange: (section: Section) => void;
+  onSectionChange: (section: Section, newSection?: Section) => void;
 }
 
 interface SectionTypes {
@@ -13,7 +13,6 @@ interface SectionTypes {
 
 const SectionEditor = ({ section, onSectionChange }: SectionEditorProps) => {
   const onSectionTypeChange = (newSectionType: string) => {
-    console.log("TYPE CHANGE");
     onSectionChange({ ...section, type: newSectionType });
   };
 

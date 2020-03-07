@@ -10,6 +10,7 @@ export interface UserState {
   user: User;
   isFetching: boolean;
   error: any;
+  isLoggedIn: boolean;
 }
 
 interface FetchUserPending {
@@ -40,7 +41,8 @@ export default function user(
   state: UserState = {
     user: {},
     isFetching: false,
-    error: null
+    error: null,
+    isLoggedIn: false
   },
   action: UserActionTypes
 ) {
@@ -53,16 +55,22 @@ export default function user(
       return {
         ...state,
         isFetching: false,
+        isLoggedIn: true,
         user: action.payload
       };
     }
 
     case FETCH_USER_REJECTED: {
-      return { ...state, isFetching: false, error: action.payload };
+      return {
+        ...state,
+        isFetching: false,
+        error: action.payload,
+        isLoggedIn: false
+      };
     }
 
     case USER_LOGOUT: {
-      return { ...state, user: {} };
+      return { ...state, isLoggedIn: false, user: {} };
     }
 
     default:

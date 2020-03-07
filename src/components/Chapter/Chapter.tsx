@@ -1,12 +1,31 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { Book } from "../Book/Book.model";
-import { getChapter, getBookByChapterId } from "../../api/api";
+import {
+  getChapter,
+  getBookByChapterId,
+  updateSection,
+  updateChapter,
+  createSection
+} from "../../api/api";
 import { RouteComponentProps } from "react-router";
 import { Chapter as ChapterModel } from "./Chapter.model";
-import ChapterStructure from "./ChapterStructure";
+import PageStructure from "../common/PageStructure/PageStructure";
+import ChapterContent from "./ChapterContent";
+import { Section } from "../Sections/Section.model";
+import StatusBar from "../common/StatusBar/StatusBar";
 
 const Chapter = ({ match }: RouteComponentProps<{ id: string }>) => {
-  const [chapter, setChapter] = useState<ChapterModel | undefined>(undefined);
+  const [chapter, setChapter] = useState<ChapterModel>({
+    _id: "",
+    title: "",
+    sections: []
+  });
+  const [newChapter, setNewChapter] = useState<ChapterModel>({
+    _id: "",
+    title: "",
+    sections: []
+  });
+
   const [previousChapter, setPreviousChapter] = useState<
     ChapterModel | undefined
   >(undefined);
@@ -14,13 +33,20 @@ const Chapter = ({ match }: RouteComponentProps<{ id: string }>) => {
     undefined
   );
 
+  const loadChapter = useCallback(currentChapterId => {
+    getChapter(currentChapterId).then(chapter => {
+      setChapter(chapter);
+      setNewChapter(chapter);
+    });
+  }, []);
+
   useEffect(() => {
     const currentChapterId = match.params.id;
-    getChapter(currentChapterId).then(chapter => setChapter(chapter));
+    loadChapter(currentChapterId);
     getBookByChapterId(currentChapterId).then(book =>
       getPreviousAndNextChaptersFromBook(book, currentChapterId)
     );
-  }, [match.params.id]);
+  }, [match.params.id, loadChapter]);
 
   const getPreviousAndNextChaptersFromBook = (
     book: Book,
@@ -61,16 +87,57 @@ const Chapter = ({ match }: RouteComponentProps<{ id: string }>) => {
     setNextChapter(nextChapter);
   };
 
+  const onSectionsChange = (newSections: Section[]) => {
+    setNewChapter(prevChapter => {
+      return { ...prevChapter, sections: newSections };
+    });
+  };
+
+  const updateSections = () => {
+    newChapter.sections.forEach((newSection, i) => {
+      const oldSection = chapter.sections.find(oldSection => {
+        return oldSection._id === newSection._id;
+      });
+      if (!Object.is(newSection, oldSection)) {
+        updateSection(newSection);
+      }
+    });
+  };
+
+  const createNewSection = (section: Section): void => {
+    if (section._id === "") {
+      delete section._id;
+      createSection(section).then(createdSection => {
+        const newSections = [...newChapter.sections, createdSection];
+        onSectionsChange(newSections);
+      });
+    } else {
+      throw new Error("Something is wrong with newSection ID");
+    }
+  };
+
+  const saveChapter = () => {
+    updateSections();
+    updateChapter(newChapter);
+    loadChapter(newChapter._id);
+  };
+
   if (!chapter) {
     return <div>No chapter</div>;
   } else
     return (
-      <div id="MathJaxContainer">
-        <ChapterStructure
-          chapter={chapter}
-          previousChapter={previousChapter}
-          nextChapter={nextChapter}
-        />
+      <div>
+        <StatusBar chaptersEqual={Object.is(newChapter, chapter)} />
+        <PageStructure>
+          <ChapterContent
+            chapter={newChapter}
+            previousChapter={previousChapter}
+            nextChapter={nextChapter}
+            onSectionsChange={onSectionsChange}
+            saveChapter={saveChapter}
+            createNewSection={createNewSection}
+          />
+        </PageStructure>
       </div>
     );
 };

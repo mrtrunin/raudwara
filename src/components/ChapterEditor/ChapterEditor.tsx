@@ -10,7 +10,7 @@ import { Chapter } from "../Chapter/Chapter.model";
 import TitleEditor from "./TitleEditor";
 import { Button, List } from "antd";
 import SectionsEditor from "./SectionsEditor";
-import { Section } from "../Section/Section.model";
+import { Section } from "../Sections/Section.model";
 
 interface ChapterEditorProps {
   chapterId: string;
@@ -51,6 +51,7 @@ const ChapterEditor = ({ chapterId, onChapterSave }: ChapterEditorProps) => {
   };
 
   const onSectionsChange = (newSections: Section[]) => {
+    console.log("ON SECTIONS CHANGE");
     setNewChapter(prevChapter => {
       return { ...prevChapter, sections: newSections };
     });
@@ -69,6 +70,7 @@ const ChapterEditor = ({ chapterId, onChapterSave }: ChapterEditorProps) => {
   };
 
   const updateSections = () => {
+    console.log("UPDATE SECTIONS");
     newChapter.sections.forEach((newSection, i) => {
       const oldSection = chapter.sections.find(oldSection => {
         return oldSection._id === newSection._id;
@@ -80,6 +82,7 @@ const ChapterEditor = ({ chapterId, onChapterSave }: ChapterEditorProps) => {
   };
 
   const saveChapter = () => {
+    console.log("SAVE CHAPTER");
     updateSections();
     updateChapter(newChapter);
     onChapterSave();

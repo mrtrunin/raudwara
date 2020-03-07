@@ -1,5 +1,5 @@
 import React from "react";
-import { Section } from "../Section/Section.model";
+import { Section } from "../Sections/Section.model";
 import { List, Button } from "antd";
 import SectionEditor from "./SectionEditor";
 import arrayMove from "array-move";
@@ -20,14 +20,19 @@ const SectionsEditor = ({
     onSectionsChange(arrayMove(sections, oldIndex, newIndex));
   };
 
-  const onSectionChange = (updatedSection: Section) => {
+  const onSectionChange = (updatedSection: Section, newSection?: Section) => {
+    console.log("HERE");
+
     const sectionIndex = sections.findIndex(section => {
       return updatedSection._id === section._id;
     });
 
+    console.log(updatedSection);
+    console.log(newSection);
+
     onSectionsChange([
       ...sections.slice(0, sectionIndex),
-      updatedSection,
+      newSection ? newSection : updatedSection,
       ...sections.slice(sectionIndex + 1)
     ]);
   };

@@ -56,8 +56,10 @@ const App = () => {
           style={{
             background: "#fff",
             padding: 24,
+            paddingTop: 80,
+            marginTop: 80,
             margin: 0,
-            minHeight: "84vh"
+            minHeight: "92vh"
           }}
         >
           <Switch>
@@ -68,8 +70,8 @@ const App = () => {
             <Route path="/write" exact component={Write} />
             <Route path="/write/chapter/:id" component={WriteChapter} />
           </Switch>
-          {/* Some main page */}
         </Content>
+
         <Footer className="center">Raudwara 2019</Footer>
       </Layout>
     </Router>
