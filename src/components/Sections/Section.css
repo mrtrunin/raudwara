@@ -31,3 +31,14 @@
   min-height: 3em;
   background-color: #dddddd;
 }
+
+.hover {
+  border: 3px solid #1da57a;
+  cursor: text;
+  padding: 0px 3px;
+}
+
+.noHover {
+  margin: 3px;
+  padding: 3px;
+}

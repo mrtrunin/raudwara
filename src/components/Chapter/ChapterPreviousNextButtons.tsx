@@ -12,7 +12,13 @@ const ChapterPreviousNextButtons = ({
   nextChapter
 }: ChapterPreviousNextButtonsProps) => {
   return (
-    <Row style={{ borderTop: "solid", paddingTop: 16 }}>
+    <Row
+      style={{
+        borderTop: "solid",
+        paddingTop: 16,
+        paddingBottom: 64
+      }}
+    >
       <Col span={12} className="left">
         {previousChapter && (
           <a href={`/chapter/${previousChapter._id}`}>

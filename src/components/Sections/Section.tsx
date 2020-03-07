@@ -14,6 +14,7 @@ import FormulaEdit from "./FormulaEdit";
 import RuleView from "./RuleView";
 import RuleEdit from "./RuleEdit";
 import ImageEdit from "./ImageEdit";
+import "./Section.css";
 
 interface SectionProps {
   section: SectionModel;
@@ -53,13 +54,13 @@ const Section = (props: SectionProps) => {
 
   const onCommandEnter = useCallback(
     (e: any) => {
-      if (e.keyCode === 13 && e.metaKey) {
+      if (e.keyCode === 13 && e.metaKey && node.current) {
         isLoggedIn && props.saveChapter();
         isLoggedIn && setHighlight(false);
         isLoggedIn && setEdit(false);
       }
     },
-    [props, isLoggedIn]
+    [node, isLoggedIn, props]
   );
 
   useEffect(() => {
@@ -134,7 +135,7 @@ const Section = (props: SectionProps) => {
       onClick={onClick}
       onMouseOver={onMouseOver}
       onMouseOut={onMouseOut}
-      style={highlight ? { backgroundColor: "yellow", cursor: "text" } : {}}
+      className={highlight ? "hover" : "noHover"}
     >
       {sectionViews()}
     </div>

@@ -72,7 +72,7 @@ const App = () => {
           </Switch>
         </Content>
 
-        <Footer className="center">Raudwara 2019</Footer>
+        <Footer className="center">Raudwara 2020</Footer>
       </Layout>
     </Router>
   );

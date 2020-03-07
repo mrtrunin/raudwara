@@ -46,8 +46,7 @@ const AddNewSection = ({ createNewSection }: AddNewSectionProps) => {
         return {
           _id: "",
           type,
-          url:
-            "https://dev.w3.org/SVG/tools/svgweb/samples/svg-files/gaussian1.svg"
+          url: "https://storage.cloud.google.com/raudwara-test/kiwi.svg"
         };
       default:
         return {

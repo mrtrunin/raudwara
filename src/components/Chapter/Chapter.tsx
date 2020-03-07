@@ -13,8 +13,13 @@ import PageStructure from "../common/PageStructure/PageStructure";
 import ChapterContent from "./ChapterContent";
 import { Section } from "../Sections/Section.model";
 import StatusBar from "../common/StatusBar/StatusBar";
+import { RootState } from "../../rootReducer";
+import { useSelector } from "react-redux";
+import { User } from "../User/User.model";
 
 const Chapter = ({ match }: RouteComponentProps<{ id: string }>) => {
+  const user: User = useSelector((state: RootState) => state.user.user);
+
   const [chapter, setChapter] = useState<ChapterModel>({
     _id: "",
     title: "",
@@ -124,22 +129,26 @@ const Chapter = ({ match }: RouteComponentProps<{ id: string }>) => {
 
   if (!chapter) {
     return <div>No chapter</div>;
-  } else
-    return (
-      <div>
+  } else console.log(user);
+  return (
+    <div>
+      {Object.keys(user).length ? (
         <StatusBar chaptersEqual={Object.is(newChapter, chapter)} />
-        <PageStructure>
-          <ChapterContent
-            chapter={newChapter}
-            previousChapter={previousChapter}
-            nextChapter={nextChapter}
-            onSectionsChange={onSectionsChange}
-            saveChapter={saveChapter}
-            createNewSection={createNewSection}
-          />
-        </PageStructure>
-      </div>
-    );
+      ) : (
+        ""
+      )}
+      <PageStructure>
+        <ChapterContent
+          chapter={newChapter}
+          previousChapter={previousChapter}
+          nextChapter={nextChapter}
+          onSectionsChange={onSectionsChange}
+          saveChapter={saveChapter}
+          createNewSection={createNewSection}
+        />
+      </PageStructure>
+    </div>
+  );
 };
 
 export default Chapter;
