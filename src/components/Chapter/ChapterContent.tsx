@@ -4,9 +4,6 @@ import "./Chapter.css";
 import { ChapterContentProps } from "./Chapter.model";
 import ChapterPreviousNextButtons from "./ChapterPreviousNextButtons";
 import Sections from "../Sections/Sections";
-import AddNewSection from "../Sections/AddNewSection";
-import { useSelector } from "react-redux";
-import { RootState } from "../../rootReducer";
 
 const { Title } = Typography;
 
@@ -19,8 +16,6 @@ const ChapterContent = ({
   createNewSection,
   saveChapter
 }: ChapterContentProps) => {
-  const isLoggedIn = useSelector((state: RootState) => state.user.isLoggedIn);
-
   if (!chapter.sections) {
     return <div>No chapters</div>;
   }
@@ -36,8 +31,6 @@ const ChapterContent = ({
         createNewSection={createNewSection}
         saveChapter={saveChapter}
       />
-
-      {isLoggedIn && <AddNewSection createNewSection={createNewSection} />}
 
       <ChapterPreviousNextButtons
         previousChapter={previousChapter}

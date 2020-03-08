@@ -36,6 +36,7 @@
   border: 3px solid #1da57a;
   cursor: text;
   padding: 0px 3px;
+  margin-bottom: 3px;
 }
 
 .noHover {

@@ -4,11 +4,15 @@ import { Section as SectionModel } from "./Section.model";
 // import { useSelector } from "react-redux";
 // import { RootState } from "../../rootReducer";
 import Section from "./Section";
+import AddNewSectionTest from "./AddNewSectionTest";
+import AddNewSection from "./AddNewSection";
+import { useSelector } from "react-redux";
+import { RootState } from "../../rootReducer";
 
 interface SectionsProps {
   sections: SectionModel[];
   onSectionsChange: (e: any) => void;
-  createNewSection: (section: SectionModel) => void;
+  createNewSection: (section: SectionModel, previousSectionId?: string) => void;
   saveChapter: () => void;
 }
 
@@ -18,7 +22,7 @@ const Sections = ({
   createNewSection,
   saveChapter
 }: SectionsProps) => {
-  // const user = useSelector((state: RootState) => state.user.user);
+  const isLoggedIn = useSelector((state: RootState) => state.user.isLoggedIn);
 
   const onSectionChange = (updatedSection: SectionModel) => {
     const sectionIndex = sections.findIndex(section => {
@@ -34,6 +38,7 @@ const Sections = ({
 
   return (
     <div>
+      {isLoggedIn && <AddNewSection createNewSection={createNewSection} />}
       {sections.map((section: SectionModel, i: number) => {
         return (
           <div key={i}>
@@ -42,6 +47,12 @@ const Sections = ({
               onSectionChange={onSectionChange}
               saveChapter={saveChapter}
             />
+            {isLoggedIn && (
+              <AddNewSection
+                createNewSection={createNewSection}
+                previousSectionId={section._id}
+              />
+            )}
           </div>
         );
       })}

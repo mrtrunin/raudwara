@@ -4,10 +4,14 @@ import { Button } from "antd";
 import "./AddNewSection.css";
 
 interface AddNewSectionProps {
-  createNewSection: (section: Section) => void;
+  createNewSection: (section: Section, previousSectionId?: string) => void;
+  previousSectionId?: string;
 }
 
-const AddNewSection = ({ createNewSection }: AddNewSectionProps) => {
+const AddNewSection = ({
+  createNewSection,
+  previousSectionId
+}: AddNewSectionProps) => {
   const newSection = (type: string): Section => {
     switch (type) {
       case "definition":
@@ -59,7 +63,7 @@ const AddNewSection = ({ createNewSection }: AddNewSectionProps) => {
 
   const triggerNewSection = (type: string) => {
     const defaultNewSection = newSection(type);
-    createNewSection(defaultNewSection);
+    createNewSection(defaultNewSection, previousSectionId);
   };
 
   return (

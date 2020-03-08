@@ -109,11 +109,23 @@ const Chapter = ({ match }: RouteComponentProps<{ id: string }>) => {
     });
   };
 
-  const createNewSection = (section: Section): void => {
+  const createNewSection = (
+    section: Section,
+    previousSectionId?: string
+  ): void => {
     if (section._id === "") {
       delete section._id;
+
       createSection(section).then(createdSection => {
-        const newSections = [...newChapter.sections, createdSection];
+        let newSections = [...newChapter.sections];
+        let previousSectionIndex = 0;
+        if (previousSectionId) {
+          previousSectionIndex =
+            newSections.map(section => section._id).indexOf(previousSectionId) +
+            1;
+        }
+        newSections.splice(previousSectionIndex, 0, createdSection);
+
         onSectionsChange(newSections);
       });
     } else {
@@ -129,7 +141,7 @@ const Chapter = ({ match }: RouteComponentProps<{ id: string }>) => {
 
   if (!chapter) {
     return <div>No chapter</div>;
-  } else console.log(user);
+  }
   return (
     <div>
       {Object.keys(user).length ? (
