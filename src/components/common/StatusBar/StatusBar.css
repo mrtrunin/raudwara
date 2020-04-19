@@ -1,9 +1,32 @@
-.statusBar {
+.statusBarContainer {
   bottom: 0;
   left: 0;
-  margin: 0;
-  width: 100%;
-  height: 10vh;
-  position: absolute;
-  background-color: rgba(0, 0, 255, 0.174);
+  right: 0;
+  height: 9vh;
+  position: fixed;
+  z-index: 9000;
+  background-color: white;
+}
+
+.statusBar {
+  margin: 0px 20px;
+  border-top: solid #e8e8e8 1px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.status {
+  margin: 3vh 40px;
+  font-size: small;
+  font-weight: bold;
+}
+
+.warning {
+  color: #faad14;
+}
+
+.success {
+  color: #1da57a;
 }

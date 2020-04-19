@@ -139,13 +139,21 @@ const Chapter = ({ match }: RouteComponentProps<{ id: string }>) => {
     loadChapter(newChapter._id);
   };
 
+  const revertChapter = () => {
+    setNewChapter(chapter);
+  };
+
   if (!chapter) {
     return <div>No chapter</div>;
   }
   return (
     <div>
       {Object.keys(user).length ? (
-        <StatusBar chaptersEqual={Object.is(newChapter, chapter)} />
+        <StatusBar
+          chaptersEqual={Object.is(newChapter, chapter)}
+          saveChapter={saveChapter}
+          revertChapter={revertChapter}
+        />
       ) : (
         ""
       )}

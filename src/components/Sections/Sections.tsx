@@ -24,7 +24,7 @@ const Sections = ({
 }: SectionsProps) => {
   const isLoggedIn = useSelector((state: RootState) => state.user.isLoggedIn);
   const [highlightedSection, setHighlightedSection] = useState("");
-  const [sectionsToDelete, setSectionsToDelete] = useState([]);
+  // const [sectionsToDelete, setSectionsToDelete] = useState([]);
 
   const onMouseOver = (id: string) => {
     isLoggedIn && setHighlightedSection(id);
