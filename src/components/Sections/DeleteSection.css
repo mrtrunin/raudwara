@@ -1,0 +1,8 @@
+.deleteSection {
+  background-color: #1da57a;
+  position: absolute;
+  right: 0;
+  padding: 0em 0.3em;
+  z-index: 9000;
+  color: white;
+}

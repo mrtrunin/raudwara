@@ -1,4 +1,42 @@
 .buttons {
+  margin-top: -32px;
   margin-bottom: 24px;
-  margin-bottom: 24px;
+  background-color: white;
+  position: absolute;
+  left: 36px;
+  z-index: 9000;
+  border: solid 3px #1da57a;
+  padding: 16px;
+}
+
+.border {
+  border: solid 1.5px #1da57a;
+  position: absolute;
+  left: 16px;
+  width: 100%;
+}
+
+.hideEdit {
+  min-height: 2px;
+}
+
+.addNewSection {
+  color: #1da57a;
+  width: 64px;
+  height: 64px;
+  position: absolute;
+  left: -36px;
+  padding: 8px 16px;
+  margin-top: -30px;
+  font-size: 32px;
+  font-weight: lighter;
+  z-index: 9999;
+}
+
+.container {
+  background-color: blue;
+  position: absolute;
+  height: 32px;
+  width: 105%;
+  left: -32px;
 }

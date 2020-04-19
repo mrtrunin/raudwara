@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import { Section } from "./Section.model";
-import { Button } from "antd";
+import { Button, Icon } from "antd";
 import "./AddNewSection.css";
+import { useSelector } from "react-redux";
+import { RootState } from "../../rootReducer";
 
 interface AddNewSectionProps {
   createNewSection: (section: Section, previousSectionId?: string) => void;
@@ -12,6 +14,22 @@ const AddNewSection = ({
   createNewSection,
   previousSectionId
 }: AddNewSectionProps) => {
+  const isLoggedIn = useSelector((state: RootState) => state.user.isLoggedIn);
+  const [showHighlight, setShowHighlight] = useState(false);
+  const [showButtons, setShowButtons] = useState(false);
+
+  const onMouseOver = (e: any) => {
+    isLoggedIn && setShowHighlight(true);
+  };
+
+  const onClick = (e: any) => {
+    isLoggedIn && setShowButtons(!showButtons);
+  };
+
+  const onMouseLeave = (e: any) => {
+    isLoggedIn && setShowHighlight(false);
+  };
+
   const newSection = (type: string): Section => {
     switch (type) {
       case "definition":
@@ -64,23 +82,42 @@ const AddNewSection = ({
   const triggerNewSection = (type: string) => {
     const defaultNewSection = newSection(type);
     createNewSection(defaultNewSection, previousSectionId);
+    setShowButtons(false);
   };
 
   return (
-    <div className="buttons">
-      Add New Section
-      <br />
-      <Button.Group size="large">
-        <Button onClick={() => triggerNewSection("definition")}>
-          Definition
-        </Button>
-        <Button onClick={() => triggerNewSection("text")}>Text</Button>
-        <Button onClick={() => triggerNewSection("formula")}>Formula</Button>
-        <Button onClick={() => triggerNewSection("title")}>Title</Button>
-        <Button onClick={() => triggerNewSection("rule")}>Rule</Button>
-        <Button onClick={() => triggerNewSection("image")}>Image</Button>
-      </Button.Group>
-    </div>
+    <>
+      <div
+        onMouseOver={onMouseOver}
+        onMouseLeave={onMouseLeave}
+        className="addNewSection"
+      >
+        {showHighlight && (
+          <Icon theme="filled" onClick={onClick} type="plus-circle"></Icon>
+        )}
+      </div>
+
+      {showHighlight && <div className="border"></div>}
+
+      {showButtons && (
+        <div className="buttons">
+          Add New Section
+          <br />
+          <Button.Group size="default">
+            <Button onClick={() => triggerNewSection("definition")}>
+              Definition
+            </Button>
+            <Button onClick={() => triggerNewSection("text")}>Text</Button>
+            <Button onClick={() => triggerNewSection("formula")}>
+              Formula
+            </Button>
+            <Button onClick={() => triggerNewSection("title")}>Title</Button>
+            <Button onClick={() => triggerNewSection("rule")}>Rule</Button>
+            <Button onClick={() => triggerNewSection("image")}>Image</Button>
+          </Button.Group>
+        </div>
+      )}
+    </>
   );
 };
 

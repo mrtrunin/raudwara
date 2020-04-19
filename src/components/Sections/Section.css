@@ -1,5 +1,6 @@
 .text {
   font-family: Caslon;
+  margin: 6px;
 }
 
 .bold {
@@ -9,7 +10,7 @@
 .title {
   padding-top: 20px;
   padding-bottom: 12px;
-  margin: 1.2em 0;
+  margin: 0.6em 0;
   border-style: solid hidden solid hidden;
 }
 
@@ -30,16 +31,17 @@
   padding-bottom: 18px;
   min-height: 3em;
   background-color: #dddddd;
+  margin-bottom: 0.5em;
 }
 
 .hover {
   border: 3px solid #1da57a;
   cursor: text;
-  padding: 0px 3px;
-  margin-bottom: 3px;
+  padding: 0px 16px;
+  /* margin-bottom: 3px; */
 }
 
 .noHover {
   margin: 3px;
-  padding: 3px;
+  padding: 3px 16px;
 }

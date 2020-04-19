@@ -25,19 +25,11 @@ interface SectionProps {
 const Section = (props: SectionProps) => {
   const isLoggedIn = useSelector((state: RootState) => state.user.isLoggedIn);
   const [edit, setEdit] = useState(false);
-  const [highlight, setHighlight] = useState(false);
+
   const node = useRef() as React.MutableRefObject<HTMLDivElement>;
 
   const onClick = (e: any) => {
     isLoggedIn && setEdit(currentEdit => !currentEdit);
-  };
-
-  const onMouseOver = (e: any) => {
-    isLoggedIn && setHighlight(true);
-  };
-
-  const onMouseOut = (e: any) => {
-    isLoggedIn && setHighlight(false);
   };
 
   const onClickOutside = useCallback(
@@ -45,7 +37,6 @@ const Section = (props: SectionProps) => {
       if (node.current && node.current.contains(e.target)) {
         return;
       } else {
-        isLoggedIn && setHighlight(false);
         isLoggedIn && setEdit(false);
       }
     },
@@ -56,7 +47,6 @@ const Section = (props: SectionProps) => {
     (e: any) => {
       if (e.keyCode === 13 && e.metaKey && node.current) {
         isLoggedIn && props.saveChapter();
-        isLoggedIn && setHighlight(false);
         isLoggedIn && setEdit(false);
       }
     },
@@ -123,23 +113,14 @@ const Section = (props: SectionProps) => {
 
   if (edit) {
     return (
-      <div ref={node} style={{ margin: "50px 0" }}>
+      <div ref={node} style={{ margin: "24px" }}>
         {titleCase(props.section.type) + ":"}
         {sectionEdits()}
       </div>
     );
   }
 
-  return (
-    <div
-      onClick={onClick}
-      onMouseOver={onMouseOver}
-      onMouseOut={onMouseOut}
-      className={highlight ? "hover" : "noHover"}
-    >
-      {sectionViews()}
-    </div>
-  );
+  return <div onClick={onClick}>{sectionViews()}</div>;
 };
 
 export default Section;

@@ -1,10 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 
 import { Section as SectionModel } from "./Section.model";
 // import { useSelector } from "react-redux";
 // import { RootState } from "../../rootReducer";
+import DeleteSection from "./DeleteSection";
 import Section from "./Section";
-import AddNewSectionTest from "./AddNewSectionTest";
 import AddNewSection from "./AddNewSection";
 import { useSelector } from "react-redux";
 import { RootState } from "../../rootReducer";
@@ -23,6 +23,16 @@ const Sections = ({
   saveChapter
 }: SectionsProps) => {
   const isLoggedIn = useSelector((state: RootState) => state.user.isLoggedIn);
+  const [highlightedSection, setHighlightedSection] = useState("");
+  const [sectionsToDelete, setSectionsToDelete] = useState([]);
+
+  const onMouseOver = (id: string) => {
+    isLoggedIn && setHighlightedSection(id);
+  };
+
+  const onMouseLeave = (e: any) => {
+    isLoggedIn && setHighlightedSection("");
+  };
 
   const onSectionChange = (updatedSection: SectionModel) => {
     const sectionIndex = sections.findIndex(section => {
@@ -36,17 +46,42 @@ const Sections = ({
     ]);
   };
 
+  const deleteSection = (sectionId: string) => {
+    const sectionIndex = sections.findIndex(section => {
+      return sectionId === section._id;
+    });
+
+    const array = [...sections];
+    array.splice(sectionIndex, 1);
+    onSectionsChange(array);
+  };
+
   return (
     <div>
       {isLoggedIn && <AddNewSection createNewSection={createNewSection} />}
       {sections.map((section: SectionModel, i: number) => {
         return (
           <div key={i}>
-            <Section
-              section={section}
-              onSectionChange={onSectionChange}
-              saveChapter={saveChapter}
-            />
+            <div
+              onMouseOver={() => onMouseOver(section._id)}
+              onMouseLeave={onMouseLeave}
+              className={
+                highlightedSection === section._id ? "hover" : "noHover"
+              }
+            >
+              {isLoggedIn && highlightedSection === section._id && (
+                <DeleteSection
+                  deleteSection={deleteSection}
+                  sectionId={section._id}
+                />
+              )}
+              <Section
+                section={section}
+                onSectionChange={onSectionChange}
+                saveChapter={saveChapter}
+              />
+            </div>
+
             {isLoggedIn && (
               <AddNewSection
                 createNewSection={createNewSection}

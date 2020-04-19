@@ -6,11 +6,10 @@ interface StatusBarProps {
 }
 
 const StatusBar = ({ chaptersEqual }: StatusBarProps) => {
-  if (chaptersEqual) {
-    return <div>Saved</div>;
-  }
-
-  return <div>Not saved!</div>;
+  return (
+    <div></div>
+    // <div className="statusBar">{chaptersEqual ? "Saved" : "Not saved!"}</div>
+  );
 };
 
 export default StatusBar;
