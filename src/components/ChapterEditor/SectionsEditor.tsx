@@ -1,5 +1,6 @@
 import React from "react";
 import { Section } from "../Sections/Section.model";
+import { DownOutlined, UpOutlined } from "@ant-design/icons";
 import { List, Button } from "antd";
 import SectionEditor from "./SectionEditor";
 import arrayMove from "array-move";
@@ -61,7 +62,7 @@ const SectionsEditor = ({
                   <Button
                     type="dashed"
                     shape="circle"
-                    icon="up"
+                    icon={<UpOutlined />}
                     onClick={() => {
                       onSortSections(i, i - 1);
                     }}
@@ -71,7 +72,7 @@ const SectionsEditor = ({
                   <Button
                     type="dashed"
                     shape="circle"
-                    icon="down"
+                    icon={<DownOutlined />}
                     onClick={() => {
                       onSortSections(i, i + 1);
                     }}

@@ -1,5 +1,6 @@
 import React from "react";
-import { Row, Col, Icon } from "antd";
+import { LeftOutlined, RightOutlined } from "@ant-design/icons";
+import { Row, Col } from "antd";
 import { Chapter } from "./Chapter.model";
 
 interface ChapterPreviousNextButtonsProps {
@@ -24,7 +25,7 @@ const ChapterPreviousNextButtons = ({
         {previousChapter && (
           <a href={`/chapter/${previousChapter._id}`}>
             <strong>
-              <Icon type="left" />
+              <LeftOutlined />
               {previousChapter.title}
             </strong>
           </a>
@@ -34,7 +35,7 @@ const ChapterPreviousNextButtons = ({
         {nextChapter && (
           <a href={`/chapter/${nextChapter._id}`}>
             <strong>
-              {nextChapter.title} <Icon type="right" />
+              {nextChapter.title} <RightOutlined />
             </strong>
           </a>
         )}

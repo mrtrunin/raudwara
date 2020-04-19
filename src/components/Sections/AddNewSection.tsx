@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Section } from "./Section.model";
-import { Button, Icon } from "antd";
+import { PlusCircleFilled } from "@ant-design/icons";
+import { Button } from "antd";
 import "./AddNewSection.css";
 import { useSelector } from "react-redux";
 import { RootState } from "../../rootReducer";
@@ -93,7 +94,7 @@ const AddNewSection = ({
         className="addNewSection"
       >
         {showHighlight && (
-          <Icon theme="filled" onClick={onClick} type="plus-circle"></Icon>
+          <PlusCircleFilled onClick={onClick}></PlusCircleFilled>
         )}
       </div>
 
@@ -103,7 +104,7 @@ const AddNewSection = ({
         <div className="buttons">
           Add New Section
           <br />
-          <Button.Group size="default">
+          <Button.Group>
             <Button onClick={() => triggerNewSection("definition")}>
               Definition
             </Button>

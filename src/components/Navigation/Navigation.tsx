@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { Menu, Icon } from "antd";
+import { LoginOutlined, LogoutOutlined } from "@ant-design/icons";
+import { Menu } from "antd";
 import SubMenu from "antd/lib/menu/SubMenu";
 import { Book } from "../Book/Book.model";
 import { getBooks } from "../../api/api";
@@ -30,10 +31,7 @@ export const Navigation = () => {
             key={i}
             title={
               <span className="submenu-title-wrapper">
-                <a href="/books">
-                  {book.icon && <Icon type={book.icon} />}
-                  {book.title}
-                </a>
+                <a href="/books">{book.title}</a>
               </span>
             }
           >
@@ -64,7 +62,7 @@ export const Navigation = () => {
           title={
             <span className="submenu-title-wrapper">
               <a href="/login">
-                <Icon type="login" />
+                <LoginOutlined />
                 Login
               </a>
             </span>
@@ -76,7 +74,7 @@ export const Navigation = () => {
           title={
             <span className="submenu-title-wrapper">
               <a href="/logout">
-                <Icon type="logout" />
+                <LogoutOutlined />
                 Logout
               </a>
             </span>

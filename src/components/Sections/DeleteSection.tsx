@@ -1,6 +1,6 @@
 import React from "react";
 import "./DeleteSection.css";
-import { Icon } from "antd";
+import { CloseCircleOutlined } from "@ant-design/icons";
 
 interface DeleteSectionProps {
   sectionId: string;
@@ -14,7 +14,7 @@ const DeleteSection = (props: DeleteSectionProps) => {
 
   return (
     <div className="deleteSection">
-      <Icon type="close-circle" onClick={onDeleteSection}></Icon>
+      <CloseCircleOutlined onClick={onDeleteSection}></CloseCircleOutlined>
     </div>
   );
 };

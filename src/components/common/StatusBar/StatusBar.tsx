@@ -1,6 +1,7 @@
 import React from "react";
 import "./StatusBar.css";
-import { Icon, Button } from "antd";
+import { CheckCircleFilled, WarningFilled } from "@ant-design/icons";
+import { Button } from "antd";
 
 interface StatusBarProps {
   chaptersEqual: boolean;
@@ -18,12 +19,7 @@ const StatusBar = ({
       <div className="statusBar">
         {chaptersEqual ? (
           <div className="status success">
-            <Icon
-              type="check-circle"
-              theme="filled"
-              style={{ color: "#1DA57A" }}
-            />{" "}
-            Saved
+            <CheckCircleFilled style={{ color: "#1DA57A" }} /> Saved
           </div>
         ) : (
           <>
@@ -43,12 +39,7 @@ const StatusBar = ({
             </div>
 
             <div className="status warning">
-              <Icon
-                type="warning"
-                theme="filled"
-                style={{ color: "#faad14" }}
-              />{" "}
-              Not saved
+              <WarningFilled style={{ color: "#faad14" }} /> Not saved
             </div>
 
             <div>
