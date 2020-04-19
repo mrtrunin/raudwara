@@ -5,11 +5,14 @@ import { Book } from "../Book/Book.model";
 import { getBooks } from "../../api/api";
 import { useSelector } from "react-redux";
 import { RootState } from "../../rootReducer";
+import { useLocation } from "react-router";
 
 export const Navigation = () => {
   const user = useSelector((state: RootState) => state.user.user);
   const [books, setBooks] = useState<Book[]>([]);
+  const location = useLocation();
 
+  console.log();
   useEffect(() => {
     getBooks().then(res => setBooks(res));
   }, [user]);
@@ -18,7 +21,7 @@ export const Navigation = () => {
     <Menu
       theme="light"
       mode="horizontal"
-      defaultSelectedKeys={["matemaatika"]}
+      defaultSelectedKeys={[location.pathname.split("/")[2]]}
       style={{ lineHeight: "64px" }}
     >
       {books.map((book, i) => {
@@ -36,7 +39,7 @@ export const Navigation = () => {
           >
             {book.chapters.map((chapter, j) => {
               return (
-                <Menu.Item key={`${chapter.title}:${j}`}>
+                <Menu.Item key={chapter._id}>
                   <a href={`/chapter/${chapter._id}`}>{chapter.title}</a>
                 </Menu.Item>
               );
