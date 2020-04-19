@@ -72,7 +72,9 @@ const App = () => {
           </Switch>
         </Content>
 
-        <Footer className="center">Raudwara 2020</Footer>
+        <Footer className="center" style={{ height: "8vh" }}>
+          Raudwara 2020
+        </Footer>
       </Layout>
     </Router>
   );
