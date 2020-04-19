@@ -13,7 +13,7 @@
   border: solid 1.5px #1da57a;
   position: absolute;
   left: 16px;
-  width: 100%;
+  right: 16px;
 }
 
 .hideEdit {
