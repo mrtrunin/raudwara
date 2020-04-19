@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 
 import { Section as SectionModel } from "./Section.model";
-// import { useSelector } from "react-redux";
-// import { RootState } from "../../rootReducer";
 import DeleteSection from "./DeleteSection";
 import Section from "./Section";
 import AddNewSection from "./AddNewSection";
@@ -24,7 +22,6 @@ const Sections = ({
 }: SectionsProps) => {
   const isLoggedIn = useSelector((state: RootState) => state.user.isLoggedIn);
   const [highlightedSection, setHighlightedSection] = useState("");
-  // const [sectionsToDelete, setSectionsToDelete] = useState([]);
 
   const onMouseOver = (id: string) => {
     isLoggedIn && setHighlightedSection(id);

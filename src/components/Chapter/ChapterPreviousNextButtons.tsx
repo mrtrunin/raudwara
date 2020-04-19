@@ -15,6 +15,7 @@ const ChapterPreviousNextButtons = ({
     <Row
       style={{
         borderTop: "solid",
+        marginTop: 24,
         paddingTop: 16,
         paddingBottom: 64
       }}
